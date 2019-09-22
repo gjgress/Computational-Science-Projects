@@ -1,0 +1,92 @@
+\documentclass{article}
+
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[english]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{listings}
+
+\title{CAAM 519, Homework \#1: \LaTeX{} Submission}
+\author{\texttt{gjg3}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Communicating with remote machines via ssh}
+\begin{verbatim}
+gjgress@Gabe-Work-Laptop:~/caam-519-submissions/homework-1$ ssh gjg3@ssh.clear.rice.edu
+
+
+Warning: Permanently added the ECDSA host key for IP address '128.42.124.173' to the list of known hosts.
+The Rice University Network - Unauthorized access is prohibited
+gjg3@ssh.clear.rice.edu's password: 
+The Rice University Network
+ ===========================
+ Unauthorized use is prohibited.
+ 
+ This computer system is for authorized users only.  Individuals using this
+ system without authority or in excess of their authority are subject to
+ having all their activities on this system monitored and recorded or
+ examined by any authorized person, including law enforcement, as system
+ personnel deem appropriate.  In the course of monitoring individuals
+ improperly using the system or in the course of system maintenance, the
+ activities of authorized users may also be monitored and recorded.  Any
+ material so recorded may be disclosed as appropriate.  Anyone using this
+ system consents to these terms.
+ 
+ Problems and/or questions should be submitted via the problem tracking
+ system form: http://helpdesk.rice.edu
+ 
+CURRENT USAGE AND LOAD ON THE COMPUTE NODES:
+  Sun Sep 22 14:50:01 CDT 2019
+
+ System                   	# Users   	Load ( 5, 10, 15 minute)      
+   agate.clear.rice.edu   	    0     	  0.00, 0.01, 0.05            
+   amber.clear.rice.edu   	    4     	  0.08, 0.03, 0.05            
+   cobalt.clear.rice.edu  	    0     	  0.00, 0.01, 0.05            
+   jade.clear.rice.edu    	    0     	  0.00, 0.01, 0.05            
+   onyx.clear.rice.edu    	    0     	  0.00, 0.01, 0.05            
+   opal.clear.rice.edu    	    2     	  0.00, 0.01, 0.05            
+   pyrite.clear.rice.edu  	    1     	  0.00, 0.01, 0.05            
+
+CLEAR NEWS -- https://kb.rice.edu/internal/page.php?id=71856
+ 
+ NOTE: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 
+   Matlab on the clear nodes has been upgraded to R2019a.
+ 
+   R-Studio on the clear nodes has been upgraded to 1.2.1335
+ 
+   Please log an RT ticket for any issues you may have.
+ 
+   See CLEAR NEWS for more information.
+ 
+ Mar 25, 2016:  CLEAR Tips and Hints 
+   https://kb.rice.edu/internal/page.php?id=71857
+
+
+gjgress@Gabe-Work-Laptop:~/caam-519-submissions/homework-1$ echo $HOSTNAME
+Gabe-Work-Laptop
+\end{verbatim}
+
+\section{A script to build a LaTeX document while hiding auxiliary files}
+\lstset{language=bash, basicstyle=\ttfamily}
+\begin{lstlisting}[caption={Content of shell script to compile LaTex documents}]
+#!/bin/bash
+
+mkdir -p .build
+
+pdflatex -output-directory="./.build" $1
+mv ./.build/$1.pdf ./
+\end{lstlisting}
+If the user runs the shell script with the extension of the LaTeX file, say, project.tex, then the shell script will append a ".tex" to the end of this, resorting in the file not being found. If the file is not in the directory of the shell script, and the user attempts to give the full path to the file, this will also result in an error, as the shell script assumes the file is in the current directory.\\
+
+Finally, if the folder the shell script is in does not have user write permissions, the script may fail, as in that case it would require superuser permissions.
+
+\end{document}
